@@ -1,0 +1,12 @@
+# Neovim
+.config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
+
+# OS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Personal/sensitive
+*.log
