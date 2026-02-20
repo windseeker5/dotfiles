@@ -54,13 +54,13 @@ setopt HIST_IGNORE_ALL_DUPS
 alias ls='lsd'
 alias l='ls -l'
 alias la='ls -a'
-alias lla='ls -la'
+#alias lla='ls -la'
 alias lt='ls --tree'
-alias vim='nvim'
-alias v='nvim'
-alias n='nnn'
-alias music='cmus'
-alias cat='bat'
+#alias vim='nvim'
+#alias v='nvim'
+#alias n='nnn'
+#alias music='cmus'
+#alias cat='bat'
 
 # nnn configuration
 export NNN_PLUG='p:preview-tui;o:fzopen'
@@ -76,10 +76,11 @@ bindkey '^[[B' history-search-forward
 export FZF_DEFAULT_OPTS='--color=fg:#cdd6f4,bg:#1e1e2e,hl:#89b4fa --color=fg+:#cdd6f4,bg+:#45475a,hl+:#89b4fa'
 
 # Environment variables
-export WLR_NO_HARDWARE_CURSORS=1
-export WLR_RENDERER=pixman
-export PATH=~/.npm-global/bin:$PATH
+#export WLR_NO_HARDWARE_CURSORS=1
+#export WLR_RENDERER=pixman
+#export PATH=~/.npm-global/bin:$PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export NNN_TRASH=0
+export PATH="$HOME/.local/bin:$PATH"
