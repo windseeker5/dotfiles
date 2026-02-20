@@ -46,7 +46,7 @@ print_success "System updated"
 print_step "Installing base packages"
 pacman -S --noconfirm \
     zsh neovim git base-devel \
-    btop fzf nnn bat wget curl \
+    btop fzf nnn bat lsd wget curl \
     openssh man-db unzip ripgrep
 print_success "Base packages installed"
 

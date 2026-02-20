@@ -51,15 +51,16 @@ setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 
 # Aliases
-alias ls='ls --color=auto'
-alias ll='ls -lah'
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias lt='ls --tree'
 alias vim='nvim'
 alias v='nvim'
 alias n='nnn'
 alias music='cmus'
-alias audio='pulsemixer'
 alias cat='bat'
-alias himalaya='RUST_LOG=error himalaya'
 
 # nnn configuration
 export NNN_PLUG='p:preview-tui;o:fzopen'
