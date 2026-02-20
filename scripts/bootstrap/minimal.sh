@@ -36,10 +36,10 @@ print_step "Updating system packages"
 pacman -Syu --noconfirm
 print_success "System updated"
 
-# ── Step 4: Install RPi4 kernel ──────────────────────────────────────────────
-print_step "Installing Raspberry Pi 4 kernel (enables USB + proper HDMI)"
-pacman -S --noconfirm linux-raspberrypi4 linux-raspberrypi4-headers
-print_success "RPi4 kernel installed"
+# ── Step 4: Install RPi4 kernel headers ──────────────────────────────────────
+print_step "Installing aarch64 kernel headers"
+pacman -S --noconfirm linux-aarch64-headers
+print_success "Kernel headers installed"
 
 # ── Step 5: Install base packages ────────────────────────────────────────────
 print_step "Installing base packages"
