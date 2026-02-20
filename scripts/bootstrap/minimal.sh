@@ -107,6 +107,7 @@ print_step "Deploying dotfiles (zsh, nvim, starship)"
 USER_HOME="/home/${NEW_USER}"
 CONFIG_DIR="${USER_HOME}/.config"
 mkdir -p "$CONFIG_DIR"
+chown "${NEW_USER}:${NEW_USER}" "$USER_HOME" "$CONFIG_DIR"
 
 _link() {
     local src="$1" dst="$2"
