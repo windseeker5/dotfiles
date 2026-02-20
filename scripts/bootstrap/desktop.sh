@@ -40,13 +40,15 @@ print_success "Sway stack installed"
 print_step "Enabling bluetooth and wi-fi services"
 
 # Bluetooth
-sudo systemctl enable --now bluetooth.service
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service 2>/dev/null || true
 
 # Wi-Fi via iwd (required by impala)
 if systemctl is-active --quiet NetworkManager 2>/dev/null; then
     sudo systemctl disable --now NetworkManager
 fi
-sudo systemctl enable --now iwd.service
+sudo systemctl enable iwd.service
+sudo systemctl start iwd.service 2>/dev/null || true
 
 print_success "Bluetooth and wi-fi services enabled"
 
