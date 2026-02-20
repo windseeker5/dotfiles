@@ -23,6 +23,15 @@ Personal dotfiles for Arch Linux with Sway (Wayland) and Catppuccin Mocha theme.
 │   ├── waybar/         # Status bar config and styling
 │   ├── wofi/           # Application launcher config
 │   └── starship.toml   # Starship prompt config
+├── scripts/
+│   ├── lib/
+│   │   ├── colors.sh   # ANSI color variables
+│   │   └── utils.sh    # Shared helper functions
+│   ├── rpi4/
+│   │   └── flash.sh    # Flash Arch ARM image to SD card (run on host)
+│   └── bootstrap/
+│       ├── minimal.sh  # Bootstrap terminal environment (run on Pi)
+│       └── desktop.sh  # Install Sway desktop (run on Pi, optional)
 ├── .zshrc              # Zsh shell configuration
 └── wallpapers/         # Desktop wallpaper
 ```
@@ -50,53 +59,28 @@ sudo pacman -S zsh-autosuggestions zsh-syntax-highlighting
 
 ## Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/windseekers/dotfiles.git ~/dotfiles
-   cd ~/dotfiles
-   ```
+Run the one-liner installer — it handles everything automatically:
 
-2. **Backup existing configs** (if any):
-   ```bash
-   mkdir -p ~/.config-backup
-   cp -r ~/.config/sway ~/.config-backup/ 2>/dev/null
-   cp -r ~/.config/waybar ~/.config-backup/ 2>/dev/null
-   cp -r ~/.config/wofi ~/.config-backup/ 2>/dev/null
-   cp -r ~/.config/alacritty ~/.config-backup/ 2>/dev/null
-   cp -r ~/.config/nvim ~/.config-backup/ 2>/dev/null
-   cp ~/.zshrc ~/.config-backup/ 2>/dev/null
-   ```
+```bash
+git clone https://github.com/windseekers/dotfiles.git ~/.dotfiles && bash ~/.dotfiles/install.sh
+```
 
-3. **Create symlinks**:
-   ```bash
-   # Config directories
-   ln -sf ~/dotfiles/.config/sway ~/.config/sway
-   ln -sf ~/dotfiles/.config/waybar ~/.config/waybar
-   ln -sf ~/dotfiles/.config/wofi ~/.config/wofi
-   ln -sf ~/dotfiles/.config/alacritty ~/.config/alacritty
-   ln -sf ~/dotfiles/.config/nvim ~/.config/nvim
-   ln -sf ~/dotfiles/.config/starship.toml ~/.config/starship.toml
+Or, if you prefer to run it without cloning first:
 
-   # Shell config
-   ln -sf ~/dotfiles/.zshrc ~/.zshrc
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/windseekers/dotfiles/main/install.sh)
+```
 
-   # Wallpaper
-   mkdir -p ~/Pictures/Wallpapers
-   cp ~/dotfiles/wallpapers/a_landscape_of_mountains_and_a_sunset_01.png ~/Pictures/Wallpapers/
-   ```
+The installer will:
 
-4. **Set Zsh as default shell** (if not already):
-   ```bash
-   chsh -s $(which zsh)
-   ```
+1. Install all required packages via `pacman`
+2. Back up any existing configs to `~/.config-backup/<timestamp>/`
+3. Symlink dotfiles into `~/.config/`
+4. Set Zsh as your default shell
+5. Optionally enable the Bluetooth service
+6. Print next steps
 
-5. **Enable Bluetooth** (if needed):
-   ```bash
-   sudo systemctl enable bluetooth.service
-   sudo systemctl start bluetooth.service
-   ```
-
-6. **Log out and log back into Sway**
+After it finishes, log out and log back in (or reboot). Sway starts automatically on tty1.
 
 ## Post-Installation
 
@@ -135,6 +119,79 @@ Using Catppuccin Mocha palette:
 - **Purple**: `#cba6f7` (audio)
 - **Green**: `#a6e3a1` (CPU)
 - **Yellow**: `#f9e2af` (memory)
+
+## Raspberry Pi 4 Setup
+
+Deploy these dotfiles to a fresh Arch Linux ARM installation on a Raspberry Pi 4.
+
+### Prerequisites (host machine)
+
+Install the required tools on your Arch Linux host before running the flash script:
+
+```bash
+sudo pacman -S parted dosfstools e2fsprogs libarchive wget
+```
+
+You also need the Arch Linux ARM tarball. Download it or place it at:
+`~/Downloads/ArchLinuxARM-rpi-aarch64-latest.tar.gz`
+
+The flash script will offer to download it automatically if not found.
+
+### Step 1: Flash the SD card (on host)
+
+Insert the SD card and run:
+
+```bash
+sudo bash scripts/rpi4/flash.sh
+```
+
+The script will:
+- List available block devices so you can identify the SD card
+- Require you to type `yes` explicitly before writing anything
+- Partition, format, and extract Arch Linux ARM to the card
+- Fix the `fstab` for the RPi4 aarch64 layout
+
+### Step 2: First boot and minimal bootstrap (on Pi)
+
+1. Insert the SD card into the Raspberry Pi 4, connect Ethernet, and power on
+2. Find the Pi's IP address (check your router or run `arp -a` on the host)
+3. SSH in as the default user:
+   ```bash
+   ssh alarm@<PI_IP>   # password: alarm
+   su -                # switch to root, password: root
+   ```
+4. Run the bootstrap script (either from the cloned dotfiles or curl it):
+   ```bash
+   bash scripts/bootstrap/minimal.sh
+   ```
+
+The script will:
+- Initialize the pacman keyring
+- Update the system and install the RPi4-specific kernel
+- Install base packages: `zsh`, `neovim`, `git`, `fzf`, `bat`, `btop`, etc.
+- Create a new user with sudo access
+- Set the hostname
+- Clone this dotfiles repo and symlink `~/.zshrc`, `~/.config/nvim`, `~/.config/starship.toml`
+- Fix DNS (`systemd-resolved`) and enable SSH
+
+### Step 3: Install Sway desktop (optional, on Pi)
+
+Log in as your new user, then run:
+
+```bash
+bash ~/.dotfiles/scripts/bootstrap/desktop.sh
+```
+
+The script will:
+- Install the full Sway/Wayland stack: `sway`, `waybar`, `wofi`, `alacritty`, `dunst`, `pipewire`, etc.
+- Install JetBrainsMono Nerd Font
+- Symlink all desktop configs from `~/.dotfiles/.config/`
+- Enable pipewire user services
+- Configure Sway to auto-start when logging in on tty1
+
+Reboot and log in on tty1 — Sway will launch automatically.
+
+---
 
 ## Troubleshooting
 
