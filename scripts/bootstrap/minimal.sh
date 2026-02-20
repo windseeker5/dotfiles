@@ -47,7 +47,8 @@ print_step "Installing base packages"
 pacman -S --noconfirm \
     zsh neovim git base-devel \
     btop fzf nnn bat lsd wget curl \
-    openssh man-db unzip ripgrep
+    openssh man-db unzip ripgrep \
+    fd lazygit
 print_success "Base packages installed"
 
 # ── Step 6: Create user ───────────────────────────────────────────────────────
@@ -131,14 +132,29 @@ chown -h "${NEW_USER}:${NEW_USER}" \
 
 print_success "Dotfiles deployed"
 
-# ── Step 11: Fix resolv.conf (Arch ARM DNS bug) ───────────────────────────────
+# ── Step 11: Install pkg-install and pkg-remove commands ─────────────────────
+print_step "Installing package management scripts"
+for script in pkg-install pkg-remove; do
+    src="${DOTFILES_DIR}/scripts/${script}.sh"
+    dst="/usr/local/bin/${script}"
+    if [[ -f "$src" ]]; then
+        chmod +x "$src"
+        ln -sf "$src" "$dst"
+        printf "  installed: %s\n" "$dst"
+    else
+        printf "${YELLOW}  skipped (not found): %s${NC}\n" "$src"
+    fi
+done
+print_success "Package scripts installed"
+
+# ── Step 13: Fix resolv.conf (Arch ARM DNS bug) ───────────────────────────────
 print_step "Fixing resolv.conf for systemd-resolved"
 rm -f /etc/resolv.conf
 ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 systemctl enable systemd-resolved
 print_success "resolv.conf fixed and systemd-resolved enabled"
 
-# ── Step 12: Enable SSH ───────────────────────────────────────────────────────
+# ── Step 14: Enable SSH ───────────────────────────────────────────────────────
 print_step "Enabling SSH daemon"
 systemctl enable --now sshd
 print_success "sshd enabled and started"
