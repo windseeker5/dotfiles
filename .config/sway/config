@@ -9,7 +9,7 @@ set $term alacritty
 set $menu wofi --show drun
 
 # Wallpaper
-output * bg ~/Pictures/Wallpapers/a_landscape_of_mountains_and_a_sunset_01.png fill
+output * bg ~/.dotfiles/wallpapers/a_landscape_of_mountains_and_a_sunset_01.png fill
 
 
 # Font for window titles

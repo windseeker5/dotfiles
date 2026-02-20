@@ -79,6 +79,15 @@ _link "${DOTFILES_DIR}/.config/alacritty" "${CONFIG_DIR}/alacritty"
 
 print_success "Desktop dotfiles deployed"
 
+# ── Step 3b: Set zsh as default shell ────────────────────────────────────────
+print_step "Setting zsh as default shell"
+if [[ "$(getent passwd "$USER" | cut -d: -f7)" != "/usr/bin/zsh" ]]; then
+    sudo chsh -s /usr/bin/zsh "$USER"
+    print_success "Default shell set to zsh"
+else
+    print_success "zsh already set as default shell"
+fi
+
 # ── Step 4: Enable pipewire via systemd user ──────────────────────────────────
 print_step "Enabling pipewire user services"
 systemctl --user enable pipewire pipewire-pulse wireplumber
