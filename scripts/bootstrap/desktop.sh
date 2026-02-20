@@ -32,8 +32,23 @@ sudo pacman -S --noconfirm \
     grim slurp swayidle swaylock \
     dunst pipewire pipewire-pulse wireplumber \
     wl-clipboard pamixer brightnessctl \
-    xorg-xwayland
+    xorg-xwayland \
+    wiremix bluetui impala iwd bluez bluez-utils
 print_success "Sway stack installed"
+
+# ── Step 1b: Enable Bluetooth and Wi-Fi services ──────────────────────────────
+print_step "Enabling bluetooth and wi-fi services"
+
+# Bluetooth
+sudo systemctl enable --now bluetooth.service
+
+# Wi-Fi via iwd (required by impala)
+if systemctl is-active --quiet NetworkManager 2>/dev/null; then
+    sudo systemctl disable --now NetworkManager
+fi
+sudo systemctl enable --now iwd.service
+
+print_success "Bluetooth and wi-fi services enabled"
 
 # ── Step 2: Install fonts ─────────────────────────────────────────────────────
 print_step "Installing fonts"

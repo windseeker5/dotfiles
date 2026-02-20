@@ -82,7 +82,7 @@
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-        "on-click": "alacritty -e bluetuith"
+        "on-click": "alacritty -e bluetui"
     },
 
     "network": {
@@ -93,7 +93,7 @@
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}\nSSID: {essid}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}\nSpeed: {bandwidthUpBits} up / {bandwidthDownBits} down",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click": "alacritty -e nmtui"
+        "on-click": "alacritty -e impala"
     },
 
     "pulseaudio": {
@@ -110,7 +110,7 @@
             "car": "󰄋",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "on-click": "pulsemixer",
+        "on-click": "alacritty -e wiremix",
         "on-click-right": "pamixer --toggle-mute"
     },
 
