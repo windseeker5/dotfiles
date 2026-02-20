@@ -44,7 +44,7 @@ print_success "RPi4 kernel installed"
 # ── Step 5: Install base packages ────────────────────────────────────────────
 print_step "Installing base packages"
 pacman -S --noconfirm \
-    zsh neovim vim git base-devel \
+    zsh neovim git base-devel \
     btop fzf nnn bat wget curl \
     openssh man-db unzip ripgrep
 print_success "Base packages installed"
