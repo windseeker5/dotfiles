@@ -31,6 +31,12 @@ pacman-key --init
 pacman-key --populate archlinuxarm
 print_success "Keyring initialized"
 
+# ── Step 2b: Switch to reliable mirror ───────────────────────────────────────
+print_step "Setting package mirror"
+echo 'Server = https://de.mirror.archlinuxarm.org/$arch/$repo' > /etc/pacman.d/mirrorlist
+pacman -Syy --noconfirm
+print_success "Mirror set to de.mirror.archlinuxarm.org"
+
 # ── Step 3: System update ─────────────────────────────────────────────────────
 print_step "Updating system packages"
 pacman -Syu --noconfirm
