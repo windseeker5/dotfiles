@@ -25,6 +25,14 @@ print_step "Checking privileges"
 require_root
 print_success "Running as root"
 
+# ── Step 1b: Set up UTF-8 locale ─────────────────────────────────────────────
+print_step "Configuring UTF-8 locale"
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+locale-gen
+echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+export LANG=en_US.UTF-8
+print_success "Locale set to en_US.UTF-8"
+
 # ── Step 2: Initialize pacman keyring ────────────────────────────────────────
 print_step "Initializing pacman keyring"
 pacman-key --init
