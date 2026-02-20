@@ -28,7 +28,7 @@ fi
 # ── Step 1: Install Sway stack ────────────────────────────────────────────────
 print_step "Installing Sway and Wayland compositor stack"
 sudo pacman -S --noconfirm \
-    sway waybar wofi alacritty \
+    sway swaybg waybar wofi alacritty \
     grim slurp swayidle swaylock \
     dunst pipewire pipewire-pulse wireplumber \
     wl-clipboard pamixer brightnessctl \

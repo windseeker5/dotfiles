@@ -8,8 +8,8 @@ set $term alacritty
 # App launcher
 set $menu wofi --show drun
 
-# Wallpaper
-output * bg ~/.dotfiles/wallpapers/a_landscape_of_mountains_and_a_sunset_01.png fill
+# Wallpaper - random from wallpapers folder on each login
+exec ~/.dotfiles/scripts/wallpaper-random.sh
 
 
 # Font for window titles
