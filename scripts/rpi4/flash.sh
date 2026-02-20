@@ -37,8 +37,12 @@ print_success "All dependencies present"
 print_step "Locating Arch Linux ARM tarball"
 TARBALL=""
 
+# Resolve the invoking user's home dir (works under sudo)
+REAL_HOME="$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)"
+
 # Check common locations
 for candidate in \
+    "${REAL_HOME}/Downloads/${TARBALL_NAME}" \
     "${HOME}/Downloads/${TARBALL_NAME}" \
     "$(pwd)/cache/${TARBALL_NAME}" \
     "/tmp/${TARBALL_NAME}"; do
@@ -97,8 +101,8 @@ print_success "Unmounted"
 # ── Step 8: Partition ────────────────────────────────────────────────────────
 print_step "Partitioning $DEVICE"
 parted -s "$DEVICE" mklabel msdos
-parted -s "$DEVICE" mkpart primary fat32 1MiB 201MiB
-parted -s "$DEVICE" mkpart primary ext4 201MiB 100%
+parted -s "$DEVICE" mkpart primary fat32 1MiB 513MiB
+parted -s "$DEVICE" mkpart primary ext4 513MiB 100%
 parted -s "$DEVICE" set 1 boot on
 print_success "Partitioned"
 
