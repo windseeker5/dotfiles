@@ -2,9 +2,15 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# Dotfiles installer for Arch Linux (Sway + Catppuccin Mocha)
-# Usage (after cloning):  bash install.sh
-# Usage (curl, no clone): bash <(curl -fsSL https://raw.githubusercontent.com/windseekers/dotfiles/main/install.sh)
+# Full automated dotfiles installer for Arch Linux (Sway + Catppuccin Mocha)
+#
+# Use this for FRESH/MINIMAL Arch Linux installations (Raspberry Pi or x86_64)
+# that need the complete Sway desktop environment installed automatically.
+#
+# For EXISTING SYSTEMS or SELECTIVE installation, use deploy.sh instead.
+#
+# Usage (after cloning):  bash install-full.sh
+# Usage (curl, no clone): bash <(curl -fsSL https://raw.githubusercontent.com/windseekers/dotfiles/main/install-full.sh)
 # ---------------------------------------------------------------------------
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

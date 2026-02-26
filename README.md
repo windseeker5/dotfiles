@@ -24,16 +24,24 @@ Personal dotfiles for Arch Linux with Sway (Wayland) and Catppuccin Mocha theme.
 │   ├── wofi/           # Application launcher config
 │   └── starship.toml   # Starship prompt config
 ├── scripts/
+│   ├── deploy/         # Modular deployment scripts
+│   │   ├── docker.sh      # Docker installer
+│   │   ├── lazydocker.sh  # lazydocker installer
+│   │   └── dotfiles.sh    # Dotfiles deployer
 │   ├── lib/
 │   │   ├── colors.sh   # ANSI color variables
 │   │   └── utils.sh    # Shared helper functions
 │   ├── rpi4/
 │   │   └── flash.sh    # Flash Arch ARM image to SD card (run on host)
-│   └── bootstrap/
-│       ├── minimal.sh  # Bootstrap terminal environment (run on Pi)
-│       └── desktop.sh  # Install Sway desktop (run on Pi, optional)
+│   ├── bootstrap/
+│   │   ├── minimal.sh  # Bootstrap terminal environment (run on Pi)
+│   │   └── desktop.sh  # Install Sway desktop (run on Pi, optional)
+│   ├── pkg-install.sh  # FZF-based package installer
+│   └── pkg-remove.sh   # FZF-based package remover
+├── deploy.sh           # Modular TUI deployment tool
+├── install-full.sh     # Full automated installer for fresh systems
 ├── .zshrc              # Zsh shell configuration
-└── wallpapers/         # Desktop wallpaper
+└── wallpapers/         # Desktop wallpapers
 ```
 
 ## Prerequisites
@@ -59,21 +67,25 @@ sudo pacman -S zsh-autosuggestions zsh-syntax-highlighting
 
 ## Installation
 
-Run the one-liner installer — it handles everything automatically:
+### Option 1: Full Automated Installation (Fresh Systems)
+
+**Use this for:** Fresh/minimal Arch Linux installations (Raspberry Pi or x86_64) that need the complete Sway desktop environment.
+
+Run the one-liner full installer — it handles everything automatically:
 
 ```bash
-git clone https://github.com/windseekers/dotfiles.git ~/.dotfiles && bash ~/.dotfiles/install.sh
+git clone https://github.com/windseekers/dotfiles.git ~/.dotfiles && bash ~/.dotfiles/install-full.sh
 ```
 
 Or, if you prefer to run it without cloning first:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/windseekers/dotfiles/main/install.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/windseekers/dotfiles/main/install-full.sh)
 ```
 
-The installer will:
+The full installer will:
 
-1. Install all required packages via `pacman`
+1. Install all required packages via `pacman` (Sway, Waybar, Alacritty, etc.)
 2. Back up any existing configs to `~/.config-backup/<timestamp>/`
 3. Symlink dotfiles into `~/.config/`
 4. Set Zsh as your default shell
@@ -81,6 +93,33 @@ The installer will:
 6. Print next steps
 
 After it finishes, log out and log back in (or reboot). Sway starts automatically on tty1.
+
+### Option 2: Modular Deployment (Existing Systems)
+
+**Use this for:** Existing Arch systems (e.g., Manjaro/Archi) or when you only want specific components.
+
+Clone the repo first:
+
+```bash
+git clone https://github.com/windseekers/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+```
+
+Then run the interactive deployment tool:
+
+```bash
+bash deploy.sh
+```
+
+The modular installer provides a checklist menu where you can select:
+
+1. **Install Docker** - Minimal Docker Engine setup
+2. **Install lazydocker** - Docker management TUI
+3. **Deploy dotfiles** - Backup and symlink all configs (.zshrc + .config/*)
+4. **Interactive package installer** - FZF-based package search/install
+5. **Interactive package remover** - FZF-based package removal
+
+Use SPACE to select/deselect options, ENTER to confirm, ESC to cancel.
 
 ## Post-Installation
 
