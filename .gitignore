@@ -10,3 +10,6 @@
 
 # Personal/sensitive
 *.log
+
+# Cache
+cache/
