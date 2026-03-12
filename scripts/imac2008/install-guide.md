@@ -25,15 +25,23 @@ You'll land at a terminal login prompt — that's it, you're in.
 ## 5. First login
 Default credentials are whatever you set during install.
 
-Install your essentials:
+Install git (needed to clone dotfiles):
 ```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y git zsh neovim tmux curl
+sudo apt update && sudo apt install -y git
 ```
 
-## 6. Deploy dotfiles
+## 6. Bootstrap everything
+This single script installs the full terminal + Sway desktop environment
+(same setup as the Raspberry Pi 4):
 ```bash
-git clone <your-dotfiles-repo>
+git clone git@github.com:windseeker5/dotfiles.git
 cd dotfiles
-bash scripts/bootstrap/desktop.sh
+bash scripts/imac2008/bootstrap.sh
 ```
+
+What it sets up:
+- **Terminal**: zsh, neovim, tmux, fzf, ripgrep, bat, fd, nnn, btop, lsd, lazygit, fastfetch
+- **Desktop**: sway, waybar, wofi, alacritty, pipewire, dunst, grim/slurp
+- **Fonts**: JetBrainsMono Nerd Font, Noto
+- **Dotfiles**: symlinks for zsh, nvim, starship, sway, waybar, wofi, alacritty
+- **Sway**: Start manually by typing `sway` from the TTY

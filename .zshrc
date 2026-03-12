@@ -1,5 +1,8 @@
-# Show system info on terminal start
+# Show system info on terminal start (before p10k instant prompt)
 fastfetch
+
+# Suppress p10k instant prompt warning (fastfetch produces console output during init)
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -7,6 +10,7 @@ fastfetch
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
 
 ### Zinit Plugin Manager
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -43,8 +47,14 @@ zinit light zsh-users/zsh-syntax-highlighting
 # FZF integration
 zinit ice lucid wait"0" from"gh-r" as"program"
 zinit light junegunn/fzf
-zinit snippet /usr/share/fzf/key-bindings.zsh
-zinit snippet /usr/share/fzf/completion.zsh
+# Load FZF key-bindings and completion from whichever path exists
+if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  source /usr/share/doc/fzf/examples/completion.zsh
+fi
 
 # History
 HISTFILE=~/.zsh_history

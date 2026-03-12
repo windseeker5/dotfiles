@@ -112,5 +112,5 @@ printf "  2. Power on and immediately hold ${BOLD}Option (⌥)${NC} to open the 
 printf "  3. Select the USB drive\n"
 printf "  4. Follow the Ubuntu Server installer (it handles the bootloader automatically)\n"
 printf "  5. After install, deploy your dotfiles:\n"
-printf "     git clone <your-dotfiles-repo> && cd dotfiles\n"
-printf "     bash scripts/bootstrap/desktop.sh\n\n"
+printf "     git clone git@github.com:windseeker5/dotfiles.git && cd dotfiles\n"
+printf "     bash scripts/imac2008/bootstrap.sh\n\n"
