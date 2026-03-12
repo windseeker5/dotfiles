@@ -18,8 +18,9 @@ This is a personal dotfiles repository for an Arch Linux system with a Wayland-b
 
 ### Status Bar & UI
 - **Waybar**: Top bar configuration at `.config/waybar/config` and `.config/waybar/style.css`
-  - Modules: workspaces, window title, pulseaudio, CPU, memory, temperature, clock
+  - Modules: workspaces, window title, clock, bluetooth, network, pulseaudio, CPU, memory, tray
   - Uses Nerd Font icons for visual elements
+  - Note: Waybar v0.9.x does not support advanced bluetooth/temperature format strings; config is simplified for compatibility
 
 - **Wofi**: Application launcher at `.config/wofi/config`
   - 600x400 centered window with dark theme
@@ -51,7 +52,10 @@ This is a personal dotfiles repository for an Arch Linux system with a Wayland-b
   - Custom color scheme
 
 - **cmus**: Terminal music player
-- **pulsemixer/pamixer**: Audio control
+- **wiremix**: PipeWire TUI audio mixer (replaces pulsemixer)
+- **bluetui**: Bluetooth TUI manager
+- **impala**: Wi-Fi TUI manager (requires iwd)
+- **pamixer**: CLI audio control (volume keys)
 - **btop**: System monitor
 
 ## Key Sway Keybindings
@@ -60,8 +64,10 @@ This is a personal dotfiles repository for an Arch Linux system with a Wayland-b
 - `Mod+d`: Application launcher (Wofi)
 - `Mod+n`: nnn file manager
 - `Mod+m`: cmus music player
-- `Mod+a`: pulsemixer audio control
-- `Mod+c`: Chromium browser
+- `Mod+a`: wiremix audio control
+- `Mod+b`: bluetui Bluetooth manager
+- `Mod+w`: impala Wi-Fi manager
+- `Mod+c`: Claude AI (Chromium)
 - `Mod+Shift+q`: Kill window
 - `Print`: Screenshot with grim/slurp
 
@@ -70,7 +76,6 @@ This is a personal dotfiles repository for an Arch Linux system with a Wayland-b
 Auto-started via Sway config:
 - pipewire & pipewire-pulse (audio)
 - dunst (notifications)
-- chromium (browser with Wayland support)
 - swayidle (screen lock/power management: 5min lock, 10min screen off)
 
 ## Environment Variables

@@ -36,8 +36,13 @@ Personal dotfiles for Arch Linux with Sway (Wayland) and Catppuccin Mocha theme.
 │   ├── bootstrap/
 │   │   ├── minimal.sh  # Bootstrap terminal environment (run on Pi)
 │   │   └── desktop.sh  # Install Sway desktop (run on Pi, optional)
+│   ├── imac2008/
+│   │   ├── bootstrap.sh    # Full Ubuntu setup (terminal + desktop)
+│   │   ├── flash.sh        # Flash Ubuntu Server to USB
+│   │   └── install-guide.md
 │   ├── pkg-install.sh  # FZF-based package installer
-│   └── pkg-remove.sh   # FZF-based package remover
+│   ├── pkg-remove.sh   # FZF-based package remover
+│   └── wallpaper-random.sh  # Random wallpaper on login
 ├── deploy.sh           # Modular TUI deployment tool
 ├── install-full.sh     # Full automated installer for fresh systems
 ├── .zshrc              # Zsh shell configuration
@@ -127,7 +132,7 @@ Use SPACE to select/deselect options, ENTER to confirm, ESC to cancel.
 
 - On first launch, Neovim will automatically install plugins via lazy.nvim
 - Zsh will use the Starship prompt automatically
-- Waybar should display all modules including Bluetooth and network
+- Waybar should display all modules (workspaces, clock, bluetooth, network, audio, CPU, memory)
 
 ### Key Bindings (Sway)
 
@@ -135,8 +140,11 @@ Use SPACE to select/deselect options, ENTER to confirm, ESC to cancel.
 - `Mod` + `d`: Application launcher (Wofi)
 - `Mod` + `n`: File manager (nnn)
 - `Mod` + `m`: Music player (cmus)
-- `Mod` + `a`: Audio mixer (pulsemixer)
-- `Mod` + `c`: Browser (Chromium)
+- `Mod` + `a`: Audio mixer (wiremix)
+- `Mod` + `b`: Bluetooth manager (bluetui)
+- `Mod` + `w`: Wi-Fi manager (impala)
+- `Mod` + `c`: Claude AI (Chromium)
+- `Mod` + `y`: yt-tui
 - `Mod` + `Shift` + `q`: Kill window
 - `Mod` + `Shift` + `c`: Reload Sway config
 - `Print`: Screenshot tool (grim + slurp)
@@ -243,11 +251,18 @@ fc-list | grep -i "jetbrains.*nerd"
 ### Cursor issues in Sway
 The `.zshrc` includes `WLR_NO_HARDWARE_CURSORS=1` which fixes cursor rendering on some systems.
 
+### Waybar not appearing
+Waybar v0.9.x crashes if the config contains module definitions with unsupported format strings (even for modules not in the active module list). If waybar fails silently, run `waybar` from a terminal to see the error. Common fixes:
+- Remove or simplify the `temperature` block if no sensor is available
+- Simplify `bluetooth` tooltip formats (`{num_connections}`, `{device_enumerate}` require newer waybar)
+- Remove advanced tooltip format strings (`{swapUsed}`, `{bandwidthUpBits}`, etc.)
+
 ### Network/Bluetooth modules not working
-Ensure NetworkManager and Bluetooth services are running:
+Ensure Bluetooth and Wi-Fi services are running:
 ```bash
-systemctl status NetworkManager
 systemctl status bluetooth
+systemctl status iwd          # if using impala for Wi-Fi
+systemctl status NetworkManager  # alternative to iwd
 ```
 
 ## License

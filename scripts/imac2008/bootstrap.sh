@@ -147,7 +147,7 @@ mkdir -p "$CONFIG_DIR"
 _link() {
     local src="$1" dst="$2"
     if [[ -e "$src" ]]; then
-        ln -sf "$src" "$dst"
+        ln -sfn "$src" "$dst"
         printf "  linked: %s → %s\n" "$dst" "$src"
     else
         printf "${YELLOW}  skipped (not found): %s${NC}\n" "$src"
@@ -166,7 +166,7 @@ for script in pkg-install pkg-remove; do
     dst="${HOME}/.local/bin/${script}"
     if [[ -f "$src" ]]; then
         chmod +x "$src"
-        ln -sf "$src" "$dst"
+        ln -sfn "$src" "$dst"
         printf "  installed: %s\n" "$dst"
     else
         printf "${YELLOW}  skipped (not found): %s${NC}\n" "$src"

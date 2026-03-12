@@ -155,7 +155,7 @@ mkdir -p "$HOME/.config"
 
 _link() {
     local src="$1" dst="$2"
-    ln -sf "$src" "$dst"
+    ln -sfn "$src" "$dst"
     print_success "Linked $dst → $src"
 }
 

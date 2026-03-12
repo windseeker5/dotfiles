@@ -65,7 +65,7 @@ mkdir -p "$CONFIG_DIR"
 _link() {
     local src="$1" dst="$2"
     if [[ -e "$src" ]]; then
-        ln -sf "$src" "$dst"
+        ln -sfn "$src" "$dst"
         printf "  linked: %s → %s\n" "$dst" "$src"
     else
         printf "${YELLOW}  skipped (not found): %s${NC}\n" "$src"
