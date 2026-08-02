@@ -19,10 +19,12 @@ font pango:JetBrainsMono Nerd Font 10
 # Start terminal
 bindsym $mod+Return exec $term
 
-# Kill focused window
+# Kill focused window (matches Hyprland Super+W)
+bindsym $mod+w kill
 bindsym $mod+Shift+q kill
 
-# Start launcher
+# Start launcher (matches Hyprland Super+Space, $mod+d kept as fallback)
+bindsym $mod+space exec $menu
 bindsym $mod+d exec $menu
 
 # Reload config
@@ -77,7 +79,6 @@ bindsym $mod+f fullscreen
 
 # Floating
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
 
 # Screenshot
 bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
@@ -102,9 +103,9 @@ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
 # Quick launch shortcuts
 bindsym $mod+n exec $term -e nnn
 bindsym $mod+m exec $term -e cmus
-bindsym $mod+a exec $term -e wiremix
-bindsym $mod+b exec $term -e bluetui
-bindsym $mod+w exec $term -e impala
+bindsym $mod+Ctrl+a exec $term -e wiremix
+bindsym $mod+Ctrl+b exec $term -e bluetui
+bindsym $mod+Ctrl+w exec $term -e impala
 bindsym $mod+c exec chromium --app=https://claude.ai/new
 bindsym $mod+y exec $term -e /home/kdresdell/DEV/yt-tui/yt-tui.py
 bindsym $mod+p exec ~/.dotfiles/scripts/wallpaper-random.sh

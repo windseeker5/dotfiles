@@ -61,15 +61,17 @@ This is a personal dotfiles repository for an Arch Linux system with a Wayland-b
 ## Key Sway Keybindings
 
 - `Mod+Return`: Launch terminal (Alacritty)
-- `Mod+d`: Application launcher (Wofi)
+- `Mod+Space`: Application launcher (Wofi) — matches Hyprland's `Super+Space`; `Mod+d` also still works
 - `Mod+n`: nnn file manager
 - `Mod+m`: cmus music player
-- `Mod+a`: wiremix audio control
-- `Mod+b`: bluetui Bluetooth manager
-- `Mod+w`: impala Wi-Fi manager
+- `Mod+Ctrl+a`: wiremix audio control — matches Hyprland's `Super+Ctrl+A`
+- `Mod+Ctrl+b`: bluetui Bluetooth manager — matches Hyprland's `Super+Ctrl+B`
+- `Mod+Ctrl+w`: impala Wi-Fi manager — matches Hyprland's `Super+Ctrl+W`
 - `Mod+c`: Claude AI (Chromium)
-- `Mod+Shift+q`: Kill window
+- `Mod+w`: Kill window — matches Hyprland's `Super+W`; `Mod+Shift+q` also still works
 - `Print`: Screenshot with grim/slurp
+
+Keybinding convention (shared with this machine's Hyprland config): plain `Mod+letter` = window management, `Mod+Ctrl+letter` = system/TUI tools. Keep new Sway bindings aligned to this pattern so muscle memory transfers between machines.
 
 ## System Services
 
