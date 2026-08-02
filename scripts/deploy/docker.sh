@@ -12,35 +12,32 @@ source "$SCRIPT_DIR/scripts/lib/utils.sh"
 
 print_step "Docker installation"
 
-# Check if Docker is already installed
+# Install Docker package if not present
 if command -v docker &>/dev/null; then
     print_success "Docker is already installed ($(docker --version))"
-    exit 0
+else
+    print_step "Installing docker package"
+    sudo pacman -S --needed --noconfirm docker
+    print_success "Docker package installed"
 fi
 
-# Install Docker package
-print_step "Installing docker package"
-sudo pacman -S --needed --noconfirm docker
-print_success "Docker package installed"
-
-# Enable Docker service
+# Enable and start Docker service
 print_step "Enabling docker.service"
-sudo systemctl enable docker.service
-print_success "Docker service enabled"
+sudo systemctl enable --now docker.service
+print_success "Docker service enabled and started"
 
-# Start Docker service
-print_step "Starting docker.service"
-sudo systemctl start docker.service
-print_success "Docker service started"
+# Add current user to docker group (idempotent)
+if id -nG "$USER" | grep -qw docker; then
+    print_success "User $USER is already in docker group"
+else
+    print_step "Adding $USER to docker group"
+    sudo usermod -aG docker "$USER"
+    print_success "User added to docker group"
+fi
 
-# Add current user to docker group
-print_step "Adding $USER to docker group"
-sudo usermod -aG docker "$USER"
-print_success "User added to docker group"
-
-# Verify installation
+# Verify installation (use sg to activate docker group without requiring re-login)
 print_step "Verifying Docker installation"
-if sudo docker run --rm hello-world &>/dev/null; then
+if sg docker -c "docker run --rm hello-world" &>/dev/null; then
     print_success "Docker verification successful"
 else
     print_error "Docker verification failed"
