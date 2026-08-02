@@ -109,6 +109,7 @@ bindsym $mod+Ctrl+w exec $term -e impala
 bindsym $mod+c exec chromium --app=https://claude.ai/new
 bindsym $mod+y exec $term -e /home/kdresdell/DEV/yt-tui/yt-tui.py
 bindsym $mod+p exec ~/.dotfiles/scripts/wallpaper-random.sh
+bindsym $mod+r exec ~/.dotfiles/scripts/doorbell-cam.sh
 
 ### Appearance
 # Gaps
