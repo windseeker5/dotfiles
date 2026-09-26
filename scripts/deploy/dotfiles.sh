@@ -41,6 +41,7 @@ _backup "$HOME/.config/alacritty"
 _backup "$HOME/.config/nvim"
 _backup "$HOME/.config/starship.toml"
 _backup "$HOME/.zshrc"
+_backup "$HOME/.p10k.zsh"
 
 # Remove backup dir if nothing was put in it
 if [[ -z "$(ls -A "$BACKUP_DIR")" ]]; then
@@ -70,6 +71,7 @@ _link "$SCRIPT_DIR/.config/alacritty"     "$HOME/.config/alacritty"
 _link "$SCRIPT_DIR/.config/nvim"          "$HOME/.config/nvim"
 _link "$SCRIPT_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
 _link "$SCRIPT_DIR/.zshrc"                "$HOME/.zshrc"
+_link "$SCRIPT_DIR/.p10k.zsh"             "$HOME/.p10k.zsh"
 
 printf "\n${GREEN}${BOLD}Dotfiles deployment complete!${NC}\n\n"
 printf "Next steps:\n"

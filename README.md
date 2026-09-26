@@ -8,7 +8,7 @@ Personal dotfiles for Arch Linux with Sway (Wayland) and Catppuccin Mocha theme.
 - **Status Bar**: Waybar with custom Catppuccin styling
 - **Application Launcher**: Wofi
 - **Terminal**: Alacritty with JetBrainsMono Nerd Font
-- **Shell**: Zsh with Starship prompt
+- **Shell**: Zsh with Powerlevel10k prompt
 - **Editor**: Neovim (LazyVim distribution)
 - **Color Scheme**: Catppuccin Mocha throughout
 
@@ -46,6 +46,7 @@ Personal dotfiles for Arch Linux with Sway (Wayland) and Catppuccin Mocha theme.
 ├── deploy.sh           # Modular TUI deployment tool
 ├── install-full.sh     # Full automated installer for fresh systems
 ├── .zshrc              # Zsh shell configuration
+├── .p10k.zsh           # Powerlevel10k prompt colors/layout
 └── wallpapers/         # Desktop wallpapers
 ```
 
