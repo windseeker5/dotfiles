@@ -131,11 +131,13 @@ _link() {
 _link "${DOTFILES_DIR}/.zshrc"                    "${USER_HOME}/.zshrc"
 _link "${DOTFILES_DIR}/.config/nvim"              "${CONFIG_DIR}/nvim"
 _link "${DOTFILES_DIR}/.config/starship.toml"     "${CONFIG_DIR}/starship.toml"
+_link "${DOTFILES_DIR}/.config/fastfetch"          "${CONFIG_DIR}/fastfetch"
 
 chown -h "${NEW_USER}:${NEW_USER}" \
     "${USER_HOME}/.zshrc" \
     "${CONFIG_DIR}/nvim" \
     "${CONFIG_DIR}/starship.toml" \
+    "${CONFIG_DIR}/fastfetch" \
     2>/dev/null || true
 
 print_success "Dotfiles deployed"
